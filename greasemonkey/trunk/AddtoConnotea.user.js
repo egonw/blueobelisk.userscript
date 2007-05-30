@@ -1,4 +1,7 @@
-// This script is available under the GPL v2
+// Copyright (C) 2007 Noel O'Boyle
+//
+// Released under the GPL license
+// http://www.gnu.org/copyleft/gpl.html
 // --------------------------------------------------------------------
 //
 // ==UserScript==
@@ -14,8 +17,6 @@
 // @include       http://www.pnas.org/*
 // ==/UserScript==
 //
-//
-// 18May07 Improved the layout of the Stack It logo and counter
 //
 
 GM_registerMenuCommand("Change your Connotea username", enterusername);
