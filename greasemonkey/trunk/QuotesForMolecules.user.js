@@ -41,7 +41,7 @@ function main() {
   // Check for new DOIs only once per day
   if (cb_stored_date != curr_date)
   {
-    get_INCHI_list("http://wiki.cubic.uni-koeln.de/cb/api_inchi.php?type=inchi&ids_only=1", "chemical_blogspace_ID_list");
+    get_INCHI_list("http://blueobelisk.sf.net/cb/api_inchi.php?type=inchi&ids_only=1", "chemical_blogspace_ID_list");
     GM_setValue("chemical_blogspace_data_date", curr_date);
   }
   var cb_id_list = eval('(' + GM_getValue("chemical_blogspace_ID_list","{InChI:{}}") + ')'); // check this line
@@ -140,7 +140,7 @@ function get_INCHI_list(myurl, variablename){
 
 function get_citations_cb(doi, textarea) {
   //GM_log("param: " + doi);
-  url = "http://wiki.cubic.uni-koeln.de/cb/api.php?type=post&citing_cbid="+doi+"&format=json";
+  url = "http://blueobelisk.sf.net/cb/api.php?type=post&citing_cbid="+doi+"&format=json";
   GM_log("Starting get_citations: " + url);
   GM_xmlhttpRequest({
     method: 'GET',
@@ -170,7 +170,7 @@ function insert_citations_cb(obj, doi, textarea) {
     bubbletext += "<br /><a href='" + post.url + "'><b>" + post.title + "</b></a> <i>" + post.blog_name + "</i> " + post.summary + "... ";
   }
   newanchor = document.createElement("a");
-  newanchor.setAttribute("href","http://wiki.cubic.uni-koeln.de/cb/inchi.php?id="+doi);
+  newanchor.setAttribute("href","http://blueobelisk.sf.net/cb/inchi.php?id="+doi);
   newanchor.setAttribute("onmouseover", "return overlib('" + myescape(bubbletext) + "', STICKY, MOUSEOFF, WIDTH, 400, VAUTO, CAPTION, 'Powered by Chemical Blogspace');")
   newanchor.setAttribute("onmouseout", "return nd();")
   img = document.createElement("img");
