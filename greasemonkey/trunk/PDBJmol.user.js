@@ -27,6 +27,7 @@
 //            is present
 
 var p = /\b(\d[a-zA-Z][a-zA-Z0-9]{2})\b/g; // Regexp for 99% of PDB codes
+var proteinpage = /(protein|pdb|enzyme)/i;
 
 var StartTag = "<a href='http://firstglance.jmol.org/fg.htm?mol=";
 var EndTag = "' target=_blank>Jmol</a>";
@@ -96,12 +97,23 @@ function run() {
     XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     null
     );
-
+  var this_is_a_protein_page = false;
   for (var i = 0, l = xPathResult.snapshotLength; i < l; i++) {
     var textNode = xPathResult.snapshotItem(i);
-    searchandreplace(textNode);
+    var alltext = textNode.nodeValue;
+    if (alltext.match(proteinpage)) {
+      this_is_a_protein_page = true;
+      break;
+      }
   }
+
+  if (this_is_a_protein_page)
+    for (var i = 0, l = xPathResult.snapshotLength; i < l; i++) {
+      var textNode = xPathResult.snapshotItem(i);
+      searchandreplace(textNode);
+    }
 }
 
 // MAIN
 run();
+
