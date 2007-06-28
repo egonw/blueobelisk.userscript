@@ -6,7 +6,7 @@
 //
 // ==UserScript==
 // @name          Quotes from Chemical Blogspace and PostGenomic
-// @namespace     http://wiki.cubic.uni-koeln.de/cb
+// @namespace     http://blueobelisk.org
 // @description   Adds Chemical Blogspace and PostGenomic content to Table of Contents pages
 // @include       http://pubs*.acs.org/*
 // @include       http://www.rsc.org/*
@@ -15,7 +15,17 @@
 // @include       http://*.oxfordjournals.org/*
 // @include       http://*.plosjournals.org/*
 // @include       http://www.pnas.org/*
+// @include       http://www.biomedcentral.com/*
+// @include       http://www.citeulike.org/*
 // ==/UserScript==
+//
+// CHANGELOG
+//
+// 27-Jun-07: Changed the namespace to http://blueobelisk.org
+//            Added BMC and CUL, as suggested by Egon
+//            Added brackets to DOI regexp, as suggested by Egon
+//            Updated for move of CB to http://cb.openmolecules.net
+//
 
 
 function updateMenu(sitestoinclude) {
@@ -77,7 +87,7 @@ function main() {
   // Check for new DOIs only once per day
   if (cb_stored_date != curr_date && sitestoinclude & 1)
   {
-    get_DOI_list("http://wiki.cubic.uni-koeln.de/cb/api.php?type=paper&ids_only=1", "chemical_blogspace_ID_list");
+    get_DOI_list("http://cb.openmolecules.net/api.php?type=paper&ids_only=1", "chemical_blogspace_ID_list");
     GM_setValue("chemical_blogspace_data_date", curr_date);
   }
   if (pg_stored_date != curr_date && sitestoinclude & 2)
@@ -99,7 +109,7 @@ function main() {
     //For every child of this node check for the presence of a DOI
     for (var k =0;k< thisTextarea.childNodes.length;k++ )
     {
-      var reg = /(10\.[0-9]+\/[a-z0-9\.\-\+\/]+)/i;
+      var reg = /(10\.[0-9]+\/[a-z0-9\.\-\+\/\(\)]+)/i;
       var ar = reg.exec(thisTextarea.childNodes[k].nodeValue);
       var doi_found=RegExp.$1;
       if (ar && doi_found){
@@ -142,7 +152,7 @@ function get_citations_cb(doi, textarea) {
   doi_list = eval('(' + GM_getValue("chemical_blogspace_ID_list",0) + ')').doi_id;
   GM_xmlhttpRequest({
     method: 'GET',
-    url: "http://wiki.cubic.uni-koeln.de/cb/api.php?type=post&citing_paper="+doi_list[doi]+"&format=json",
+    url: "http://cb.openmolecules.net/api.php?type=post&citing_paper="+doi_list[doi]+"&format=json",
     headers: {
       'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
       'Accept': 'application/xml,text/html',
@@ -194,7 +204,7 @@ function insert_citations_cb(obj, doi, textarea) {
     bubbletext += "<br/><a href='" + post.url + "'><b>" + post.title + "</b></a> <i>" + post.blog_name + "</i> " + post.summary + "... ";
   }
   newanchor = document.createElement("a");
-  newanchor.setAttribute("href","http://wiki.cubic.uni-koeln.de/cb/paper.php?doi="+doi);
+  newanchor.setAttribute("href","http://cb.openmolecules.net/paper.php?doi="+doi);
   newanchor.setAttribute("onmouseover", "return overlib('" + myescape(bubbletext) + "', STICKY, MOUSEOFF, WIDTH, 400, VAUTO, CAPTION, 'Powered by Chemical Blogspace');")
   newanchor.setAttribute("onmouseout", "return nd();")
   img = document.createElement("img");
