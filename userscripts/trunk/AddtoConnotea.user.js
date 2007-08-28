@@ -17,33 +17,16 @@
 // @include       http://www.pnas.org/*
 // ==/UserScript==
 //
-//
+// 28-Aug-07: Removed all references to overlib
+
 
 GM_registerMenuCommand("Change your Connotea username", enterusername);
 // GM_registerMenuCommand("Change your Connotea username", function(e) {alert("hey");});
 
-// Load overlib, and once loaded, run main()
-var p = unsafeWindow;
 queue = [];
 queue_index = 0;
 oldqueue = [];
-function waitForOverlib() {
-    if (typeof p.olMain=='undefined')
-  // set to check every 100 milliseconds if the libary has loaded
-        window.setTimeout(waitForOverlib, 100);
-    else
-        main();
-}
-function loadOverlib() {
-  // dynamically creates a script tag
-        var overlib = document.createElement('script');
-        overlib.type = 'text/javascript';
-        overlib.src = 'http://www.redbrick.dcu.ie/~noel/Tools/overlib_bubble/all_overlib.js';
-        document.getElementsByTagName('head')[0].appendChild(overlib);
-        waitForOverlib();
-}
-window.addEventListener('load', loadOverlib(), false);
-// End of section to load overlib
+main();
 
 function enterusername(ev) {
   GM_log("starting enterusername");

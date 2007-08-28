@@ -12,6 +12,12 @@
 // @description   Adds Chemical Blogspace content to InChIs
 // @include       *
 // ==/UserScript==
+//
+// CHANGELOG
+//
+// 28-Aug-07: Moved overlib.js to blueobelisk.sf.net
+//            Moved Cb logo to cb.openmolecules.net
+
 
 // Load overlib
 var p = unsafeWindow;
@@ -26,7 +32,7 @@ function loadOverlib() {
   // dynamically creates a script tag
         var overlib = document.createElement('script');
         overlib.type = 'text/javascript';
-        overlib.src = 'http://www.redbrick.dcu.ie/~noel/Tools/overlib_bubble/all_overlib.js';
+        overlib.src = 'http://blueobelisk.sf.net/overlib/overlib.js';
         document.getElementsByTagName('head')[0].appendChild(overlib);
         waitForOverlib();
 }
@@ -175,7 +181,7 @@ function insert_citations_cb(obj, doi, textarea) {
   newanchor.setAttribute("onmouseout", "return nd();")
   img = document.createElement("img");
   img.setAttribute("alt","Comments at Chemical Blogspace");
-  img.setAttribute("src","http://www.redbrick.dcu.ie/~noel/Tools/overlib_bubble/logo.gif");
+  img.setAttribute("src","http://cb.openmolecules.net/images/cb_logo.gif");
   img.setAttribute("border","0");
   newanchor.appendChild(img);
   //insert the created node before the next sibling of the DOI containing node
