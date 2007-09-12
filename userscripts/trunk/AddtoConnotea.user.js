@@ -12,11 +12,13 @@
 // @include       http://www.rsc.org/*
 // @include       http://www*.interscience.wiley.com/*
 // @include       http://www.nature.com/*
+// @include       http://www.malariajournal.com/*
 // @include       http://*.oxfordjournals.org/*
 // @include       http://*.plosjournals.org/*
 // @include       http://www.pnas.org/*
 // ==/UserScript==
 //
+// 12-Sep-07: Fixed bug that prevented re-use of tags
 // 28-Aug-07: Removed all references to overlib
 
 
@@ -61,7 +63,7 @@ function submit(ev) {
     for (col=0; col<parseInt((newtags.length+N-1) / N); col++) {
       index = col*N + row;
       if (index < newtags.length)
-        poptext += "<td><input type='checkbox' id='stackittagbox_" + i + "' name='tagboxes' value='" + newtags[col*N + row] + "'>" + newtags[col*N + row] + "</input></td>";
+        poptext += "<td><input type='checkbox' id='stackittagbox_" + index + "' name='tagboxes' value='" + newtags[index] + "'>" + newtags[index] + "</input></td>";
     }
     poptext+="</tr>";
   }
@@ -367,7 +369,3 @@ function bigmain() {
   lookupDOI();
   }
 }
-
-
-
-
