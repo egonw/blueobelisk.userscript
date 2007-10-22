@@ -7,12 +7,14 @@
 // ==UserScript==
 // @name          PDB Jmol
 // @namespace     http://www.redbrick.dcu.ie/~noel/PDBJmol
-// @description   example script to annotate PDB codes
+// @description   Annotates PDB codes with links to FirstGlance in Jmol
 // @include       http://*
 // ==/UserScript==
 //
 // CHANGELOG
 //
+// 22-Oct-07: Added updater code adapted from
+//            http://userscripts.org/scripts/show/12193
 // 26-Jun-07: The general regexp missed 583 out of 44200 PDB codes.
 //            Now, a less strict regexp is used to catch the remaining PDB
 //            codes, which are then checked against the list of 583 codes.
@@ -163,19 +165,18 @@ var curr_date = d.getDate();
 var date_last_checked= GM_getValue("check_updates", 0);
 if (date_last_checked != curr_date)
 {
-  GM_setValue("check_updates", curr_data);
+  GM_setValue("check_updates", curr_date);
   // Modified the code by Seifer at http://userscripts.org/users/33118
   script_name = 'PBDJmol';
   script_num = '8033';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/PDBJmol.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/PDBJmol.user.js?content-type=text%2Fplain";
-  script_version=0.9;
-  script_updatetext='Added an updater';
+  script_version=1.0;
+  script_updatetext='ADD UPDATE TEXT HERE';
 
   GM_xmlhttpRequest({
       method: "GET",
-      // url: "http://userscripts.org/scripts/review/"+script_num+"?format=txt",
-      url: script_as_text;
+      url: script_as_text,
       onload: function(responseDetails) {
         var text = responseDetails.responseText;
         var update_version = text.substring(text.indexOf("script_version=")+15,text.indexOf("\n",text.indexOf("script_version="))-2);
