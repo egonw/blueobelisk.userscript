@@ -1,6 +1,6 @@
 // Copyright (c) 2006-2007 Egon Willighagen <egonw@users.sf.net>
 //                    2007 Joerg Kurt Wegner <wegner@users.sf.net>
-// Version: 20070114
+// Version: 20071022
 // Released under the GPL license
 // http://www.gnu.org/copyleft/gpl.html
 //
@@ -61,12 +61,12 @@ if (date_last_checked != curr_date)
 {
   GM_setValue("check_updates", curr_date);
   // Modified the code by Seifer at http://userscripts.org/users/33118
-  script_name = '3DStructureView.user.js';
+  script_name = 'SechemticWeb.user.js';
   script_num = '8033';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/SechemticWeb.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/SechemticWeb.user.js?content-type=text%2Fplain";
-  script_version=1.0;
-  script_updatetext='ADD UPDATE TEXT HERE';
+  script_version=20071022;
+  script_updatetext='Please update your SechemticWeb userscript.';
 
   GM_xmlhttpRequest({
       method: "GET",
