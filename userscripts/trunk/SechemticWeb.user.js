@@ -1,6 +1,6 @@
 // Copyright (c) 2006-2007 Egon Willighagen <egonw@users.sf.net>
 //                    2007 Joerg Kurt Wegner <wegner@users.sf.net>
-// Version: 20071022
+// Version: 20071022.3
 // Released under the GPL license
 // http://www.gnu.org/copyleft/gpl.html
 //
@@ -32,6 +32,7 @@
 // ChangeLog
 //
 // 2007-10-22  EW  Added update support
+//                 Added ChemSpider support
 // 2007-01-14  JKW Added support for eMolecule queries
 // 2007-01-14  EW  Per Joerg Wegner's comment, searching SMILES on PubChem now 
 //                   via SMARTS
@@ -52,6 +53,7 @@
 var useGoogle = 1;
 var usePubChem = 1;
 var useEMolecules = 1;
+var useChemSpider = 1;
 
 // Update check
 var d = new Date();
@@ -64,8 +66,8 @@ if (date_last_checked != curr_date)
   script_name = 'SechemticWeb.user.js';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/SechemticWeb.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/SechemticWeb.user.js?content-type=text%2Fplain";
-  script_version=20071022.2;
-  script_updatetext='Added an update service.';
+  script_version=20071022.3;
+  script_updatetext='Added an ChemSpider support for InChIs.';
 
   GM_xmlhttpRequest({
       method: "GET",
@@ -108,7 +110,7 @@ for (var i = 0; i < allLinks.snapshotLength; i++) {
         newElement.innerHTML = "<sup>PubChem</sup>";
         thisLink.parentNode.insertBefore(newElement, thisLink.nextSibling);
     }
-    if (usePubChem == 1 && useGoogle == 1) {
+    if (usePubChem == 1 && (useGoogle == 1 || useChemSpider == 1)) {
         spacer = document.createElement('sup');
         spacer.innerHTML = ", ";
         thisLink.parentNode.insertBefore(spacer, thisLink.nextSibling);
@@ -118,6 +120,18 @@ for (var i = 0; i < allLinks.snapshotLength; i++) {
         newElement = document.createElement('a');
         newElement.href = "http://www.google.com/search?q=" + inchi.substring(6);
         newElement.innerHTML = "<sup>Google</sup>";
+        thisLink.parentNode.insertBefore(newElement, thisLink.nextSibling);
+    }
+    if ((usePubChem == 1 || useGoogle == 1) && useChemSpider == 1) {
+        spacer = document.createElement('sup');
+        spacer.innerHTML = ", ";
+        thisLink.parentNode.insertBefore(spacer, thisLink.nextSibling);
+    }
+    if (useChemSpider == 1) {
+        // create a link to ChemSpider
+        newElement = document.createElement('a');
+        newElement.href = "http://www.chemspider.com/" + inchi.substring(6);
+        newElement.innerHTML = "<sup>ChemSpider</sup>";
         thisLink.parentNode.insertBefore(newElement, thisLink.nextSibling);
     }
 }
