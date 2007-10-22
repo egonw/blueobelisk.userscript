@@ -88,6 +88,36 @@ function main() {
   var cb_stored_date= GM_getValue("chemical_blogspace_data_date", 0);
   var pg_stored_date= GM_getValue("postgenomic_data_date", 0);
   var sitestoinclude = GM_getValue("chemical_blogspace_include_postgenomic", 1 | 2);
+  // Check for updates once a day
+  var date_last_checked= GM_getValue("check_updates", 0);
+  if (date_last_checked != curr_date)
+  {
+    GM_setValue("check_updates", curr_date);
+    // Modified the code by Seifer at http://userscripts.org/users/33118
+    script_name = 'QuotesFromCBandPG.user.js';
+    script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/" + script_name;
+    script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/" + script_name + "?content-type=text%2Fplain";
+    script_version=1.0;
+    script_updatetext='ADD UPDATE TEXT HERE';
+
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: script_as_text,
+        onload: function(responseDetails) {
+          var text = responseDetails.responseText;
+          var update_version = text.substring(text.indexOf("script_version=")+15,text.indexOf("\n",text.indexOf("script_version="))-2);
+          var update_text = text.substring(text.indexOf("script_updatetext=")+19,text.indexOf("\n",text.indexOf("script_updatetext="))-3);
+        if(update_version > script_version) {
+            newversion = document.createElement("div");
+            newversion.setAttribute("id", "gm_update_alert");
+            newversion.setAttribute("style", "background-color:yellow; width:100%; position:absolute; z-index:99; top:0px; left:0px; text-align:center; font-size:11px; font-family: Tahoma");
+            newversion.innerHTML = "<a href='#' onclick='document.body.removeChild(document.getElementById(&quot;gm_update_alert&quot;))' style='color:red'>Close</a><font color='yellow'>--------</font><font color='red'>There is a new version of the &quot;"+script_name+"&quot; script. You are currently running version "+script_version+".</font><br><font color='yellow'>----------------</font>The latest version is "+update_version+". <a href='#' onclick='document.getElementById(&quot;gm_update_alert_info&quot;).setAttribute(&quot;style&quot;, &quot;display:block&quot;)' style='color:green'>Click here for more info</a> or <a style='color:green' href='" + script_href + "'><b>Click here to download the latest version</b></a><span id='gm_update_alert_info' style='display:none'><b>Here's a short description of the latest update...</b><br>"+update_text+"</span>";
+            document.body.appendChild(newversion);
+          }
+        }
+    });
+  }
+
   // Check for new DOIs only once per day
   if (cb_stored_date != curr_date && sitestoinclude & 1)
   {
@@ -255,36 +285,3 @@ function myescape(text) {
   // (see the overLIB FAQ)
   return ans;
 }
-
-var d = new Date();
-var curr_date = d.getDate();
-var date_last_checked= GM_getValue("check_updates", 0);
-if (date_last_checked != curr_date)
-{
-  GM_setValue("check_updates", curr_date);
-  // Modified the code by Seifer at http://userscripts.org/users/33118
-  script_name = 'QuotesFromCBandPG.user.js';
-  script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/" + script_name;
-  script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/" + script_name + "?content-type=text%2Fplain";
-  script_version=1.0;
-  script_updatetext='ADD UPDATE TEXT HERE';
-
-  GM_xmlhttpRequest({
-      method: "GET",
-      url: script_as_text,
-      onload: function(responseDetails) {
-        var text = responseDetails.responseText;
-        var update_version = text.substring(text.indexOf("script_version=")+15,text.indexOf("\n",text.indexOf("script_version="))-2);
-        var update_text = text.substring(text.indexOf("script_updatetext=")+19,text.indexOf("\n",text.indexOf("script_updatetext="))-3);
-      if(update_version > script_version) {
-          newversion = document.createElement("div");
-          newversion.setAttribute("id", "gm_update_alert");
-          newversion.setAttribute("style", "background-color:yellow; width:100%; position:absolute; z-index:99; top:0px; left:0px; text-align:center; font-size:11px; font-family: Tahoma");
-          newversion.innerHTML = "<a href='#' onclick='document.body.removeChild(document.getElementById(&quot;gm_update_alert&quot;))' style='color:red'>Close</a><font color='yellow'>--------</font><font color='red'>There is a new version of the &quot;"+script_name+"&quot; script. You are currently running version "+script_version+".</font><br><font color='yellow'>----------------</font>The latest version is "+update_version+". <a href='#' onclick='document.getElementById(&quot;gm_update_alert_info&quot;).setAttribute(&quot;style&quot;, &quot;display:block&quot;)' style='color:green'>Click here for more info</a> or <a style='color:green' href='" + script_href + "'><b>Click here to download the latest version</b></a><span id='gm_update_alert_info' style='display:none'><b>Here's a short description of the latest update...</b><br>"+update_text+"</span>";
-          document.body.appendChild(newversion);
-        }
-      }
-  });
-}
-
-
