@@ -1,6 +1,7 @@
+
 // Copyright (c) 2006-2007 Egon Willighagen <egonw@users.sf.net>
 //                    2007 Joerg Kurt Wegner <wegner@users.sf.net>
-// Version: 20071022.3
+// Version: 20071022.4
 // Released under the GPL license
 // http://www.gnu.org/copyleft/gpl.html
 //
@@ -66,7 +67,7 @@ if (date_last_checked != curr_date)
   script_name = 'SechemticWeb.user.js';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/SechemticWeb.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/SechemticWeb.user.js?content-type=text%2Fplain";
-  script_version=20071022.3;
+  script_version=20071022.4;
   script_updatetext='Added an ChemSpider support for InChIs.';
 
   GM_xmlhttpRequest({
@@ -130,7 +131,7 @@ for (var i = 0; i < allLinks.snapshotLength; i++) {
     if (useChemSpider == 1) {
         // create a link to ChemSpider
         newElement = document.createElement('a');
-        newElement.href = "http://www.chemspider.com/" + inchi.substring(6);
+        newElement.href = "http://www.chemspider.com/" + inchi;
         newElement.innerHTML = "<sup>ChemSpider</sup>";
         thisLink.parentNode.insertBefore(newElement, thisLink.nextSibling);
     }
