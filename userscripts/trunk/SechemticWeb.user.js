@@ -64,8 +64,8 @@ if (date_last_checked != curr_date)
   script_name = 'SechemticWeb.user.js';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/SechemticWeb.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/SechemticWeb.user.js?content-type=text%2Fplain";
-  script_version=20071022.1;
-  script_updatetext='Please update your SechemticWeb userscript.';
+  script_version=20071022.2;
+  script_updatetext='Added an update service.';
 
   GM_xmlhttpRequest({
       method: "GET",
