@@ -64,7 +64,7 @@ if (date_last_checked != curr_date)
   script_name = '3DStructureView.user.js';
   script_num = '8033';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/SechemticWeb.user.js";
-  script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/3DStructureView.user.js?content-type=text%2Fplain";
+  script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/SechemticWeb.user.js?content-type=text%2Fplain";
   script_version=1.0;
   script_updatetext='ADD UPDATE TEXT HERE';
 
