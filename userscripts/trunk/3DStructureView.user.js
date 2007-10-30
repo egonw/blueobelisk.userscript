@@ -23,8 +23,8 @@ if (date_last_checked != curr_date)
   script_num = '8033';
   script_href = "http://blueobelisk.svn.sf.net/svnroot/blueobelisk/userscripts/trunk/3DStructureView.user.js";
   script_as_text = "http://blueobelisk.svn.sourceforge.net/viewvc/*checkout*/blueobelisk/userscripts/trunk/3DStructureView.user.js?content-type=text%2Fplain";
-  script_version=1.0;
-  script_updatetext='The script will no longer report an error if a 3D structure is not available in the 3D databases";
+  script_version=1.1;
+  script_updatetext='The script will no longer report an error if a 3D structure is not available in the 3D databases';
 
   GM_xmlhttpRequest({
       method: "GET",
