@@ -126,8 +126,9 @@ function Translate_3DData(cid)
           getStructureByCIDCallback  : function (aResult) 
 
           {
- 
+	    if (aResult != null) {
            writeApplet_3DData(aResult);
+	    }
          }
 
         };
