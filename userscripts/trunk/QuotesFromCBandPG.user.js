@@ -17,10 +17,13 @@
 // @include       http://www.pnas.org/*
 // @include       http://www.biomedcentral.com/*
 // @include       http://www.citeulike.org/*
+// @include       http://www.jcheminf.com/*
+// @include       http://www.journal.chemistrycentral.com/*
 // ==/UserScript==
 //
 // CHANGELOG
 //
+// 24-Mar-09: Added CCJ and JoCinf
 // 22-Oct-07: Added updater code adapted from
 //            http://userscripts.org/scripts/show/12193
 // 28-Aug-07: Moved overlib.js to blueobelisk.sf.net
